@@ -1,0 +1,25 @@
+{
+  "name": "webapp-byself",
+  "description": "rewrite a video webapp",
+  "main": "index.js",
+  "authors": [
+    "jeffrey-zhao"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "webapp",
+    "html5",
+    "css3"
+  ],
+  "homepage": "https://github.com/jeffrey-zhao/webapp-byself",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.6"
+  }
+}
