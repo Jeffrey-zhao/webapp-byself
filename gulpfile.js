@@ -15,7 +15,7 @@ var PATH={
 		prdPath:ROOTPATH.prd+'js'
 	},
 	lib:{
-		srcPath:'bower_components/**/*.js',
+		srcPath:'bower_components/**/*.{js,css}',
 		devPath:ROOTPATH.dev+'vendor',
 		prdPath:ROOTPATH.prd+'vendor'
 	},
@@ -26,8 +26,8 @@ var PATH={
 	},
 	html:{
 		srcPath:ROOTPATH.src+'**/*.html',
-		devPath:ROOTPATH.dev+'js',
-		prdPath:ROOTPATH.prd+'js'
+		devPath:ROOTPATH.dev,
+		prdPath:ROOTPATH.prd
 	},
 	clean:{
 		srcPath:'',
@@ -62,10 +62,7 @@ gulp.task('js',function(){
 	gulp.src(PATH.js.srcPath)
 		.pipe($.concat('index.js'))
 		.pipe(gulp.dest(PATH.js.devPath))
-		.pipe($.uglify({
-			mangle:true,
-			compress:true
-		}))
+		.pipe($.uglify())
 		.pipe(gulp.dest(PATH.js.prdPath))
 		.pipe($.connect.reload())
 });
@@ -120,7 +117,7 @@ gulp.task('json',function(){
 gulp.task('image',function(){
 	gulp.src(PATH.image.srcPath)
 		.pipe(gulp.dest(PATH.image.devPath))
-		//.pipe($.imagemin())
+		.pipe($.imagemin())
 		.pipe(gulp.dest(PATH.image.prdPath))
 		.pipe($.connect.reload())
 		
@@ -129,12 +126,14 @@ gulp.task('image',function(){
 gulp.task('build',['lib','html','json','js','less','image']);
 
 gulp.task('server',['build'],function(){
+	//console.log(PATH.server.devPath);
 	$.connect.server({
 		root:[PATH.server.devPath],
 		livereload:true,
-		port:1111
+		port:1235
 	});
-	open('http://localhost:1111');
+	//console.log($.connect.server.root);
+	open('http://localhost:1235');
 	gulp.watch(PATH.lib.srcPath,['lib']);
 	gulp.watch(PATH.json.srcPath,['json']);
 	gulp.watch(PATH.less.srcPath,['less']);
